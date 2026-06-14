@@ -4,6 +4,8 @@
 #include <ctime>
 #include <iostream>
 
+#include "RandomNumberGenerator.hpp"
+
 const std::vector<Card> DEAL_DECK = {
    { CardSuit::Club   , CardValue::Ace   },
    { CardSuit::Diamond, CardValue::Ace   },
@@ -137,7 +139,7 @@ Game::Builder::Builder()
    // mGame->mSeed = std::rand() % 32000;
 }
 
-void Game::Builder::SetSeed(const size_t aSeed)
+void Game::Builder::SetSeed(const unsigned int aSeed)
 {
    mGame->mSeed = aSeed;
 }
@@ -146,13 +148,13 @@ std::unique_ptr<Game> Game::Builder::Build()
 {
    std::vector<Card> dealDeck = DEAL_DECK;
 
-   std::srand(mGame->mSeed);
+   RandomNumberGenerator rng(mGame->mSeed);
 
    int remaining = 52;
    int j;
    for (int i = 0; i < 52; i++)
    {
-      j = rand() % remaining;
+      j = rng.Next() % remaining;
       mGame->mColumns[i % NUM_COLUMNS].push_back(dealDeck[j]);
       std::swap(dealDeck[j], dealDeck[--remaining]);
    }

@@ -37,7 +37,7 @@ private:
    std::array<Freecell, NUM_FREECELLS> mFreecells;
    std::array<Homecell, NUM_HOMECELLS> mHomecells;
 
-   size_t mSeed = 0;
+   unsigned int mSeed = 0;
 
 public:
 
@@ -48,7 +48,7 @@ public:
       Builder(const Builder& rhs) = delete;
       Builder& operator=(const Builder& rhs) = delete;
 
-      void SetSeed(const size_t aSeed);
+      void SetSeed(const unsigned int aSeed);
       std::unique_ptr<Game> Build();
 
    private:
